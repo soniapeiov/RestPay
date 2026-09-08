@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                x:Class="RestPay.MainPage"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+                xmlns:vm="clr-namespace:RestPay.ViewModels">
+
+    <ContentPage.BindingContext>
+        <vm:CheckViewModel />
+    </ContentPage.BindingContext>
+
+    <ContentPage.Behaviors>
+        <toolkit:StatusBarBehavior
+            StatusBarColor="#8cd3ed" />
+    </ContentPage.Behaviors>
+
+    <ContentPage.Resources>
+        <Style x:Key="NumericEntry"
+            TargetType="Entry">
+            <Setter Property="PlaceholderColor" Value="#1a82a8" />
+            <Setter Property="FontSize" Value="Medium" />
+            <Setter Property="Keyboard" Value="Numeric" />
+            <Setter Property="VerticalOptions" Value="Center" />
+            <Setter Property="HorizontalTextAlignment" Value="End" />
+        </Style>
+        <Style x:Key="NumericPicker"
+               TargetType="Picker">
+            <Setter Property="FontSize" Value="Medium" />
+            <Setter Property="VerticalOptions" Value="Center" />
+            <Setter Property="HorizontalTextAlignment" Value="End" />
+        </Style>
+        <Style x:Key="NumericLabel"
+                TargetType="Label">
+            <Setter Property="FontSize" Value="Medium" />
+            <Setter Property="VerticalOptions" Value="Center" />
+            <Setter Property="TextColor" Value="Black" />
+            <Setter Property="HorizontalOptions" Value="End" />
+        </Style>
+        <Style x:Key="NumericGrid" TargetType="Grid">
+            <Setter Property="ColumnSpacing" Value="25" />
+            <Setter Property="RowSpacing" Value="15"/>
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="ColumnDefinitions" Value="*,*" />
+            <Setter Property="RowDefinitions" Value="*,*" />
+        </Style>
+    </ContentPage.Resources>
+
+    <ScrollView>
+        <VerticalStackLayout>
+            <VerticalStackLayout.Background>
+                <LinearGradientBrush EndPoint="0,1">
+                    <GradientStop Offset="0.1" Color="#8cd3ed" />
+                    <GradientStop Offset="1.0" Color="#197ea3" />
+                </LinearGradientBrush>
+            </VerticalStackLayout.Background>
+
+            <Label FontFamily="RobotoRegular"
+                    FontSize="44"
+                    Text="RestPay"
+                    TextColor="#197ea3" />
+
+            <Frame BackgroundColor="#8888d2ec">
+                <Grid RowDefinitions="*,*,*" Style="{StaticResource NumericGrid}">
+                    <Label Style="{StaticResource NumericLabel}" Text="Valor"/>
+                    <Entry Grid.Column="1"
+                            Placeholder="Introduza o valor"
+                            Style="{StaticResource NumericEntry}"
+                            Text="{Binding Total}" />
+                    <Label Grid.Row="1"
+                            Style="{StaticResource NumericLabel}"
+                            Text="% Gorjeta"/>
+                    <Entry Grid.Column="1"
+                            Grid.Row="1"
+                            Placeholder="% da Gorjeta"
+                            Style="{StaticResource NumericEntry}"
+                            Text="{Binding Gorjeta}" />
+                </Grid>
+            </Frame>
+
+            <Frame BackgroundColor="#8888d2ec">
+                <Grid Style="{StaticResource NumericGrid}">
+                    <Label Style="{StaticResource NumericLabel}" Text="Gorjeta"/>
+                    <Entry Grid.Column="1"
+                            Style="{StaticResource NumericEntry}"
+                            Text="{Binding GorjetaCalculada, StringFormat='{0:C}'}" />
+                    <Label Grid.Row="1"
+                            Style="{StaticResource NumericLabel}"
+                            Text="Total"/>
+                    <Entry Grid.Column="1"
+                            Grid.Row="1"
+                            Style="{StaticResource NumericEntry}"
+                            Text="{Binding TotalFinal, StringFormat='{0:C}'}" />
+                </Grid>
+            </Frame>
+
+            <Frame BackgroundColor="#8888d2ec" HasShadow="False">
+                <Grid RowDefinitions="Auto, *" Style="{StaticResource NumericGrid}">
+                    <Label Style="{StaticResource NumericLabel}" Text="Nº de Pessoas"/>
+                    <Picker x:Name="NumPessoas"
+                            Grid.Column="1"
+                            SelectedIndexChanged="NumPessoas_SelectedIndexChanged"
+                            Style="{StaticResource NumericPicker}" />
+                </Grid>
+            </Frame>
+
+            <Label Grid.Row="1"
+                     Style="{StaticResource NumericLabel}"
+                     Text="Parcial" />
+            <Label Grid.Row="1"
+                     Grid.Column="1"
+                     Style="{StaticResource NumericLabel}"
+                     Text="{Binding ValorPessoal,StringFormat='{0:C}'}" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
